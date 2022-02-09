@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
     console.log('page is fully loaded');
   });
 
- //4 scroll
+//4 scroll
 let lastKnownScrollPosition = 0;
 let moving = false;
 
@@ -60,19 +60,44 @@ mainImage.addEventListener("dblclick", function() {
     console.log("double clicked");
 });
 
-//6 focus NOT DONE
-const logo = document.querySelector(".logo-heading");
+//6 copy
+window.addEventListener("copy", () => {
+    navigator.clipboard.readText()
+        .then(text => {
+            console.log(text, "copy");
+        })
+})
 
-function focused() {
-    logo.style.fontSize = '10rem';
+//7 mousemove
+document.body.addEventListener("mousemove", e => {
+    e.preventDefault();
+    const { clientX, clientY } = e;
+    if (clientX >= 10 || clientY >= 10) {
+        console.log("too much mousemove");
+    } else {
+        console.log(`we are at ${clientX} and ${clientY}`);
+    }
+})
+
+//8 mouseenter
+//9 mouseleave
+const destinations = document.querySelectorAll(".destination");
+
+for (let destination of destinations) {
+    destination.addEventListener("mouseenter", e => {
+        destination.style.fontWeight = "bold";
+    })
+    destination.addEventListener("mouseleave", e => {
+        destination.style.fontWeight = "initial";
+    })
 }
 
-function notFocused() {
-    logo.style.fontSize = '3rem';
+//10 resize
+const heightOutput = document.querySelector(".logo-heading");
+
+function reportWindowSize() {
+  heightOutput.textContent = window.innerHeight;
+  console.log(heightOutput, "height");
 }
 
-logo.addEventListener('focus', focused);
-
-logo.addEventListener('blur', notFocused);
-
-//7 
+window.addEventListener('resize', reportWindowSize);
